@@ -6,10 +6,6 @@
             "defaultValue": "backendSERVER",
             "type": "String"
         },
-        "virtualMachines_backendSERVER2_name": {
-            "defaultValue": "backendSERVER",
-            "type": "String"
-        },
         "virtualMachines_frontendSERVER_name": {
             "defaultValue": "frontendSERVER",
             "type": "String"
@@ -55,7 +51,12 @@
             "type": "String"
         }
     },
-    "variables": {},
+    "variables": {
+        "backendserver": "backendserver2"
+
+
+
+    },
     "resources": [
         {
             "type": "Microsoft.Network/networkSecurityGroups",
@@ -265,7 +266,7 @@
                 "tier": "Regional"
             },
             "properties": {
-                "ipAddress": "13.84.179.180",
+                "ipAddress": "",
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4,
@@ -379,7 +380,7 @@
         {
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2019-03-01",
-            "name": "[parameters('virtualMachines_backendSERVER2_name')]",
+            "name": "[variables('backendserver')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_backendserver919_name'))]"
@@ -400,7 +401,7 @@
                     },
                     "osDisk": {
                         "osType": "Windows",
-                        "name": "[concat(parameters('virtualMachines_backendSERVER2_name'), '_OsDisk_1_ef3ab3c577ea4dd5827852baae056008')]",
+                        "name": "[concat(variables('backendserver'), '_OsDisk_1_ef3ab3c577ea4dd5827852baae056008')]",
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
@@ -411,7 +412,7 @@
                     "dataDisks": []
                 },
                 "osProfile": {
-                    "computerName": "[parameters('virtualMachines_backendSERVER2_name')]",
+                    "computerName": "[variables('backendserver')]",
                     "adminUsername": "beardmin",
                     "adminPassword": "mM%Vc!562yTj",
                     "windowsConfiguration": {
